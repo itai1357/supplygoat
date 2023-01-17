@@ -1,0 +1,103 @@
+name: Pull Request
+
+on:
+  pull_request:
+jobs:
+  lint:
+    name: Lint Workflow File
+    runs-on: deere-ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: ActionLint
+        uses: JohnDeere-Tech/actionlint@v1
+
+  build-and-test:
+    name: Test and Build
+    needs: lint
+    runs-on: deere-ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install PNPM
+        id: pnpm-install
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get PNPM Store Directory
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore PNPM Cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Run Tests
+        run: pnpm run test:coverage
+
+      - name: Build App
+        env:
+          VITE_AD_GROUP: GPC_ISG_MDL_APPLICATION_READ_ONLY
+          VITE_ISG_MDL_DATA_API_BASE_URL: https://isg-mdl-data-api.isg-mdl-devl-vpn2.us.i01.c01.johndeerecloud.com
+          VITE_OKTA_CLIENT_ID: 0oa1dceljdpHRvlBS0h8
+          VITE_OKTA_ISSUER: https://sso-dev.johndeere.com/oauth2/ausdrlguszhsoK9Gj0h7
+        run: pnpm run build
+
+#  verify-iam-roles-and-policies:
+#    name: Verify IAM Roles and Policies
+#    needs: lint
+#    runs-on: deere-ubuntu-latest
+#    steps:
+#      - name: Verify IAM Roles and Policies
+#        uses: JohnDeere-Tech/iam-autopilot@v1
+#        with:
+#          account_name: aws-isg-mdl-devl
+#          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+
+  terraform-ci:
+    name: Terraform CI
+#    needs: verify-iam-roles-and-policies
+    needs: lint
+    runs-on: deere-ubuntu-latest
+    container: alpine/terragrunt:latest
+    permissions:
+      id-token: write
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Restore Terragrunt Cache
+        id: restore
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/.terragrunt-cache/
+            **/.terraform.lock.hcl
+          key: terragrunt-${{ github.sha }}
+
+      - name: Plan and Comment
+        uses: JohnDeere-Tech/terraform-ci@v1
+        env:
+          TF_VAR_git_commit: ${{github.sha}}
+        with:
+          role_arn: "arn:aws:iam::258275296095:role/system-roles/ISG-Master-Data-Library/machine-data-library-frontend/machine-data-library-frontend-deploy"

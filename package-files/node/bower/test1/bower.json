@@ -1,0 +1,58 @@
+{
+  "name": "livery-desk",
+  "version": "1.5.0",
+  "authors": [
+    "Ashwin Surajbali <ashwin@redinkdesign.net>"
+  ],
+  "description": "LiveryDesk web application",
+  "license": "Private",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.5",
+    "angular-animate": "1.5.5",
+    "angular-bootstrap": "2.5.0",
+    "angular-bowser": "0.0.4",
+    "angular-cookies": "1.5.5",
+    "angular-drag-and-drop-lists": "2.1.0",
+    "angular-libphonenumber": "^1.1.0",
+    "angular-route": "1.5.5",
+    "angular-translate": "^2.18.1",
+    "angular-translate-loader-url": "^2.18.1",
+    "angular-xeditable": "0.1.8",
+    "bootstrap": "3.3.4",
+    "bower": "*",
+    "chart.js": "^2.7.2",
+    "install": "^1.0.4",
+    "jquery": "3.2.1",
+    "jquery-ui": "1.11.1",
+    "js-cookie": "^2.2.0",
+    "local-libphonenumber": "./public/manage/js/lib/libphonenumber/libphonenumber.full.js",
+    "lodash": "4.5.1",
+    "moment": "2.8.3",
+    "moment-timezone": "0.5.10",
+    "mousetrap": "1.5.3",
+    "ng-infinite-scroller-origin": "1.1.2",
+    "ngMask": "angular-mask#^3.0.16",
+    "recorderjs": "./public/manage/js/lib/recorderjs/recorder.js",
+    "remarkable-bootstrap-notify": "3.1.3",
+    "smart-notification": "./public/manage/js/lib/notification/SmartNotification.min.js",
+    "geolib": "./public/manage/js/lib/geolib/geolib.js",
+    "geojson": "./public/manage/js/lib/geolib/geojson.min.js",
+    "angular-avatar": "./public/manage/js/lib/angular-avatar/angular-avatar.min.js",
+    "mapLasso": "./public/manage/js/vendor/jquery.mapLasso.js",
+    "turfjs": "./public/manage/js/lib/turfjs/turf.min.js",
+    "json-formatter": "^0.7.0",
+    "tz-lookup-oss": "./public/manage/js/vendor/tz.js"
+  },
+  "resolutions": {
+    "angular": "1.5.5",
+    "jquery": "3.2.1"
+  }
+}
