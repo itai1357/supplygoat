@@ -138,7 +138,7 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-appcenter (1.11.0)
+    ffi (1.15.5)
     ffi (1.15.5-x64-mingw32)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
@@ -215,7 +215,7 @@ GEM
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.2)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rouge (2.0.7)
     ruby-macho (2.5.1)
     ruby2_keywords (0.0.4)
@@ -244,6 +244,7 @@ GEM
     uber (0.1.0)
     unf (0.1.4)
       unf_ext
+    unf_ext (0.0.7.7)
     unf_ext (0.0.7.7-x64-mingw32)
     unicode-display_width (1.7.0)
     webrick (1.7.0)
@@ -262,14 +263,14 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
-  cocoapods
+  cocoapods (= 1.11.2)
   cocoapods-art
   fastlane
-  fastlane-plugin-appcenter
-  rexml
+  rexml (= 3.2.5)
 
 BUNDLED WITH
    2.1.4
