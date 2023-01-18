@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "bootstrap-sass": "3.4.1"
+    "bootstrap-sass": "3.3.7"
   },
   "overrides": {
     "bootstrap-sass": {
@@ -32,8 +32,5 @@
         "./assets/fonts/bootstrap/glyphicons-halflings-regular.woff2"
       ]
     }
-  },
-  "resolutions": {
-    "bootstrap-sass": "3.4.1"
   }
 }
